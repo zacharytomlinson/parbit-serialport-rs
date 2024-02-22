@@ -187,10 +187,10 @@ impl TryFrom<u8> for DataBits {
 
 /// Parity checking modes
 ///
-/// When parity checking is enabled (`Odd` or `Even`) an extra bit is transmitted with
-/// each character. The value of the parity bit is arranged so that the number of 1 bits in the
+/// When parity checking is enabled (`Odd` , `Even` , 'Mark' or 'Space') an extra bit is transmitted with
+/// each character. The value of the parity bit is either arranged so that the number of 1 bits in the
 /// character (including the parity bit) is an even number (`Even`) or an odd number
-/// (`Odd`).
+/// (`Odd`), or it is naively set to 1 ('Mark') or 0 ('Space')
 ///
 /// Parity checking is disabled by setting `None`, in which case parity bits are not
 /// transmitted.
@@ -205,6 +205,12 @@ pub enum Parity {
 
     /// Parity bit sets even number of 1 bits.
     Even,
+
+    /// Parity bit is set to 1
+    Mark,
+
+    /// Parity bit is set to 0
+    Space
 }
 
 impl fmt::Display for Parity {
@@ -213,6 +219,8 @@ impl fmt::Display for Parity {
             Parity::None => write!(f, "None"),
             Parity::Odd => write!(f, "Odd"),
             Parity::Even => write!(f, "Even"),
+            Parity::Mark => write!(f, "Mark"),
+            Parity::Space => write!(f, "Space")
         }
     }
 }

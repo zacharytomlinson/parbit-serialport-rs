@@ -163,6 +163,14 @@ pub(crate) fn set_parity(termios: &mut Termios, parity: Parity) {
             termios.c_iflag |= libc::INPCK;
             termios.c_iflag &= !libc::IGNPAR;
         }
+        Parity::Mark => {
+            termios.c_cflag |= libc::PARENB | libc::CMSPAR | libc::PARODD;
+        }
+        Parity::Space => {
+            termios.c_cflag |= libc::PARENB | libc::CMSPAR;
+            termios.c_cflag &= !libc::PARODD;
+        }
+
     };
 }
 
