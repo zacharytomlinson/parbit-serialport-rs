@@ -11,13 +11,6 @@ blocking I/O interface and port enumeration on POSIX and Windows systems.
 For async I/O functionality, see the [mio-serial](https://github.com/berkowski/mio-serial) and
 [tokio-serial](https://github.com/berkowski/tokio-serial) crates.
 
-Join the discussion on Matrix!
-[#serialport-rs:matrix.org](https://matrix.to/#/#serialport-rs:matrix.org)
-
-**This project is looking for maintainers! Especially for Windows. If you are interested please let
-us know on Matrix, or by [creating a
-discussion](https://github.com/serialport/serialport-rs/discussions/new).**
-
 # Overview
 
 The library exposes cross-platform serial port functionality through the `SerialPort` trait. This
