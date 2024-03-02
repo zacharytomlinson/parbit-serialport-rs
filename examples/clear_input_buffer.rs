@@ -11,28 +11,7 @@
 // 4. Press the Return key to make the example clear the input buffer. You should see the number of
 //    bytes queued to read momentarily drop to 0
 // 5. Press Ctrl+D (Unix) or Ctrl+Z (Win) to quit
-//
-// The following Arduino firmware could be used to generate input:
-//
-// ```
-// #include <Arduino.h>
-//
-// void setup() {
-//     Serial.begin(9600);
-//     while (!Serial); // wait for serial port to connect. Needed for native USB
-// }
-//
-// int iter = 0;
-//
-// void loop() {
-//     Serial.print(iter);
-//     if (++iter == 10) {
-//         Serial.println();
-//         iter = 0;
-//     }
-//     delay(1000 / 20);
-// }
-// ```
+
 
 use std::error::Error;
 use std::io::{self, Read};

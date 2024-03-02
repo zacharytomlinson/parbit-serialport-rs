@@ -170,7 +170,6 @@ pub(crate) fn set_parity(termios: &mut Termios, parity: Parity) {
             termios.c_cflag |= libc::PARENB | libc::CMSPAR;
             termios.c_cflag &= !libc::PARODD;
         }
-
     };
 }
 

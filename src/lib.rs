@@ -210,7 +210,7 @@ pub enum Parity {
     Mark,
 
     /// Parity bit is set to 0
-    Space
+    Space,
 }
 
 impl fmt::Display for Parity {
@@ -220,7 +220,7 @@ impl fmt::Display for Parity {
             Parity::Odd => write!(f, "Odd"),
             Parity::Even => write!(f, "Even"),
             Parity::Mark => write!(f, "Mark"),
-            Parity::Space => write!(f, "Space")
+            Parity::Space => write!(f, "Space"),
         }
     }
 }
