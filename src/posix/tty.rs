@@ -101,7 +101,7 @@ impl TTYPort {
     ///
     /// If the port settings differ from the default settings, characters received
     /// before the new settings become active may be garbled. To remove those
-    /// from the receive buffer, call `TTYPort::clear(ClearBuffer::Input)`.
+    /// from the recieve buffer, call `TTYPort::clear(ClearBuffer::Input)`.
     ///
     /// ## Errors
     ///
@@ -334,13 +334,13 @@ impl TTYPort {
         .map_err(|e| e.into())
     }
 
-    /// Attempts to clone the `SerialPort`. This allow you to write and read simultaneously from the
+    /// Attempts to clone the `SerialPort`. This allows you to write and read simultaneously from the
     /// same serial connection. Please note that if you want a real asynchronous serial port you
     /// should look at [mio-serial](https://crates.io/crates/mio-serial) or
     /// [tokio-serial](https://crates.io/crates/tokio-serial).
     ///
     /// Also, you must be very careful when changing the settings of a cloned `SerialPort` : since
-    /// the settings are cached on a per object basis, trying to modify them from two different
+    /// the settings are cached on a per-object basis, trying to modify them from two different
     /// objects can cause some nasty behavior.
     ///
     /// This is the same as `SerialPort::try_clone()` but returns the concrete type instead.
@@ -429,7 +429,15 @@ impl io::Write for TTYPort {
             return Err(io::Error::from(Error::from(e)));
         }
 
-        nix::unistd::write(self.fd, buf).map_err(|e| io::Error::from(Error::from(e)))
+        let mut termios = termios::get_termios(self.fd)?;
+
+        termios::set_parity(&mut termios, Parity::Mark);
+        if let Err(e) =  nix::unistd::write(self.fd, &[buf[0]]) {
+            return Err(io::Error::from(Error::from(e)));
+        }
+
+        termios::set_parity(&mut termios, Parity::Space);
+        nix::unistd::write(self.fd, &buf[1..]).map_err(|e| io::Error::from(Error::from(e)))
     }
 
     fn flush(&mut self) -> io::Result<()> {
