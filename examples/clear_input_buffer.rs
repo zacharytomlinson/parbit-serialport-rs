@@ -12,7 +12,6 @@
 //    bytes queued to read momentarily drop to 0
 // 5. Press Ctrl+D (Unix) or Ctrl+Z (Win) to quit
 
-
 use std::error::Error;
 use std::io::{self, Read};
 use std::panic::panic_any;

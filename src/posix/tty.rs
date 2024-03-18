@@ -432,7 +432,7 @@ impl io::Write for TTYPort {
         let mut termios = termios::get_termios(self.fd)?;
 
         termios::set_parity(&mut termios, Parity::Mark);
-        if let Err(e) =  nix::unistd::write(self.fd, &[buf[0]]) {
+        if let Err(e) = nix::unistd::write(self.fd, &[buf[0]]) {
             return Err(io::Error::from(Error::from(e)));
         }
 
